@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>FCC Weather app using Wunderground API</title>
+
+  <!-- add fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Lobster|Merriweather:900italic|Old+Standard+TT' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Slabo+27px|Roboto+Slab|Indie+Flower|Lobster|Kaushan+Script|Quattrocento|Great+Vibes|Tangerine'
+    rel='stylesheet' type='text/css'>
+
+  <!-- add styles -->
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div id="home" class="jumbotron">
+      <h1>Free Code Camp</h1>
+      <h1 id="header">Weather App</h1>
+      <div id="black" class="well">
+        <div id="city"></div>
+        <div id="weatherType"></div>
+        <div class="temp" id="temp"></div>
+        <button id="button" type="button" class="btn btn-primary">Switch to Celsius</button>
+        <div id="windSpeed"></div>
+      </div>
+    </div>
+  </div>
+  
+  <footer>
+    <div>Built by
+      <a href="http://chrismayer.me" target="_blank">Chris Mayer</a>
+    </div>
+  </footer>
+
+  <!-- add scripts -->
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+  <script src="js/index.js"></script>
+
+</body>
+</html>

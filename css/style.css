@@ -1,0 +1,40 @@
+#home {
+  font-size: 18px;
+  margin-bottom: 50px;
+  background: url("https://res.cloudinary.com/mayerxc/image/upload/v1469059448/bad_weather_wf1sto.jpg") no-repeat;
+  background-size: cover;
+  color: #ffffff;
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Quattrocento', serif;
+  font-family: 'Merriweather', serif;
+}
+
+#header {
+  margin-bottom: 25px;
+}
+
+#black {
+  color: #000000;
+  border-radius: 110px 15px;
+  height: 250px;
+  width: 600px;
+  margin: 0 auto;
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+
+#windSpeed {
+  padding-top: 10px;
+}
+
+.well {
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-bottom: 600px;
+}
+
+footer {
+  text-align: center;
+  margin-bottom: 200px;
+}
