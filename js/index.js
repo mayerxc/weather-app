@@ -85,12 +85,6 @@ function mphToMps (mph) {
   return parseFloat(mps).toFixed(2) 
 }
 
-function mpsToMph (mps) {
-  mph = mps * (1 / 1609.34) * (60 / 1) * (1 / 60);
-  return parseFloat(mph).toFixed(2)
-}
-
-
 //define function to get the local weather, run below in doc ready function
 function getWeather() { 
   //get object from wunderground
