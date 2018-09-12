@@ -149,17 +149,11 @@ $(document).ready(function() {
     lat = geodata.latitude;
     long = geodata.longitude;
     state =  geodata.region;
-
-
-    //$("#gpsCoord").html("latitude: " + lat + "<br>longitude: " + long);
     console.log("Your position is: " + long + "  " + lat);
 
     //openweather api below
-    //api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=
     api = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=imperial`
-    // api = "https://api.wunderground.com/api/" + apiKey + "/conditions/forecast/alert/q/" + lat + "," + long + ".json";
     console.log(api);
-    //$("#apiHere").html("API is: " + api);
 
     //run function above
     getWeather();
