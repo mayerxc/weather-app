@@ -18,6 +18,8 @@ var windSpeedString = "";
 var mph;
 var mps;
 var windDirectionDegrees;
+var zipInput;
+var zipCode;
 
 function windDirection (degree){
   degree = parseFloat(degree)
@@ -108,28 +110,7 @@ function getWeather() {
       mph = data.wind.speed;
       mps = mphToMps(mph);
       
-      //switch between Fahrenheit and Celsius
-      $("#button").click(function() {
-        if (document.getElementById("temp") !== null) {
-          $("#temp").html(cTemp + "°C");
-          //document.getElementById("temp").id = 'cTemp';
-          windSpeedString = `Wind from the ${windDirection(windDirectionDegrees)} at ${mps} MPS`;    
-          $('#windSpeed').html(windSpeedString)
-          $('#temp').attr('id','cTemp');
-          //document.getElementById("button").innerHTML = "Switch to Fahrenheit";
-          $('#button').html('Switch to Fahrenheit');
-        } else {
-          $("#cTemp").html(fTemp + "°F");
-          windSpeedString = `Wind from the ${windDirection(windDirectionDegrees)} at ${mph} MPH`;
-          $('#windSpeed').html(windSpeedString)
-          //document.getElementById("cTemp").id = 'temp';
-          
-          $('#cTemp').attr('id','temp');
 
-          //document.getElementById("button").innerHTML = "Switch to Celsius"
-          $('#button').html('Switch to Celsius');
-        }
-      });
       
       windSpeedString = `Wind from the ${windDirection(windDirectionDegrees)} at ${mph} MPH`;
       $("#windSpeed").html(windSpeedString);
@@ -159,5 +140,40 @@ $(document).ready(function() {
     getWeather();
 
   });
+
+  //switch between Fahrenheit and Celsius
+  $("#button").click(function() {
+    if (document.getElementById("temp") !== null) {
+      $("#temp").html(cTemp + "°C");
+      windSpeedString = `Wind from the ${windDirection(windDirectionDegrees)} at ${mps} MPS`;    
+      $('#windSpeed').html(windSpeedString)
+      $('#temp').attr('id','cTemp');
+      $('#button').html('Switch to Fahrenheit');
+    } else {
+      $("#cTemp").html(fTemp + "°F");
+      windSpeedString = `Wind from the ${windDirection(windDirectionDegrees)} at ${mph} MPH`;
+      $('#windSpeed').html(windSpeedString)
+      $('#cTemp').attr('id','temp');
+      $('#button').html('Switch to Celsius');
+    }
+  });
+
+
+  //https://us-zipcode.api.smartystreets.com/lookup?auth-id=28333262706862285&zipcode=06084
+  //look up other zip code
+  $("#zip").click(function(zip){
+    zipInput = $("#zipInput").val();
+    console.log("zipInput is:", zipInput);
+    //zip code api
+    $.getJSON(`https://us-zipcode.api.smartystreets.com/lookup?auth-id=28333262706862285&zipcode=${zipInput}`, function(data){
+      console.log("object from zipcode api:",data);
+      lat = data[0].zipcodes[0].latitude;
+      long = data[0].zipcodes[0].longitude;
+      state = data[0].zipcodes[0].state;
+      api = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=imperial`;
+      getWeather();
+    })
+    
+  })
   
 });
