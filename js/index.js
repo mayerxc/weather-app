@@ -20,6 +20,8 @@ var mps;
 var windDirectionDegrees;
 var zipInput;
 var zipCode;
+var unsplashKey = '5cfedf94261d3f5677df69f8705144fbb9aac1b9200368b3d0208ff2080f1944';
+var backgroundUrl;
 
 function windDirection (degree){
   degree = parseFloat(degree)
@@ -89,6 +91,15 @@ function mphToMps (mph) {
 
 //define function to get the local weather, run below in doc ready function
 function getWeather() { 
+  //change background
+  $.getJSON(`https://api.unsplash.com/search/photos?orientation=landscape&client_id=${unsplashKey}&query=weather`, function(data){
+    var randomNumber = Math.floor(Math.random() * 10) 
+    backgroundUrl = data.results[randomNumber].urls.raw
+    $('#home').css('background', `url("${backgroundUrl}") no-repeat center`);
+  }).error(function(){
+    $('#home').css('background', `url("https://res.cloudinary.com/mayerxc/image/upload/v1469059448/bad_weather_wf1sto.jpg") no-repeat center`);
+  })
+
   //get object from wunderground
   $.ajax({
     dataType: "json",
@@ -125,6 +136,7 @@ function getWeather() {
 }
 
 $(document).ready(function() {
+
   //get location using ipapi
   $.getJSON('https://ipapi.co/json/', function(geodata) {
     lat = geodata.latitude;
