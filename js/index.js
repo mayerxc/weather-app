@@ -96,7 +96,7 @@ function getWeather() {
     var randomNumber = Math.floor(Math.random() * 10) 
     backgroundUrl = data.results[randomNumber].urls.raw
     $('#home').css('background', `url("${backgroundUrl}") no-repeat center`);
-  }).error(function(){
+  }).fail(function(){
     $('#home').css('background', `url("https://res.cloudinary.com/mayerxc/image/upload/v1469059448/bad_weather_wf1sto.jpg") no-repeat center`);
   })
 
@@ -179,11 +179,22 @@ $(document).ready(function() {
     //zip code api
     $.getJSON(`https://us-zipcode.api.smartystreets.com/lookup?auth-id=28333262706862285&zipcode=${zipInput}`, function(data){
       console.log("object from zipcode api:",data);
-      lat = data[0].zipcodes[0].latitude;
-      long = data[0].zipcodes[0].longitude;
-      state = data[0].zipcodes[0].state;
-      api = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=imperial`;
-      getWeather();
+      try {
+        // $("#zip_error").text("");
+        lat = data[0].zipcodes[0].latitude;
+        long = data[0].zipcodes[0].longitude;
+        state = data[0].zipcodes[0].state;
+        api = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=imperial`;
+        console.log("no error on zip")
+        document.getElementById("zip_error").style.display = "none"
+        getWeather();
+      } catch {
+        $("#zip_error").text("Invalid ZIP Code.")
+        document.getElementById("zip_error").style.display = "block";
+        console.log("error on zip code ");
+      }
+      
+      
     })
     
   })

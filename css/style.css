@@ -35,11 +35,19 @@
 }
 .center_div {
   margin: 0 auto;
-  width: 75%;
+  width: 50%;
 
+}
+
+.jumbotron div {
+  padding: 5px;
 }
 
 footer {
   text-align: center;
   margin-bottom: 200px;
+}
+
+input::placeholder {
+  text-align: center;
 }
