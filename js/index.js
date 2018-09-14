@@ -33,64 +33,6 @@ function newWindDirection (degree) {
   return windArray[hexFloor];
 }
 
-function windDirection (degree){
-  degree = parseFloat(degree)
-  switch (true) {
-    case (degree > 348.75): 
-    case (degree < 11.25):
-      cardinalDirection = "N";
-      break;
-    case (11.25 < degree && degree < 33.75):
-      cardinalDirection = "NNE";
-      break;
-    case (33.75 < degree && degree < 56.25):
-      cardinalDirection = "NE";
-      break;
-    case (56.25 < degree && degree < 78.75):
-      cardinalDirection = "ENE";
-      break;
-    case (78.75 < degree && degree < 101.25):
-      cardinalDirection = "E";
-      break;
-    case (101.25 < degree && degree < 123.75):
-      cardinalDirection = "ESE";
-      break;
-    case (123.75 < degree && degree < 146.25):
-      cardinalDirection = "SE";
-      break;
-    case (146.25 < degree && degree < 168.75):
-      cardinalDirection = "SSE";
-      break;
-    case (168.75 < degree && degree < 191.25):
-      cardinalDirection = "S";
-      break;
-    case (191.25 < degree && degree < 213.75):
-      cardinalDirection = "SSW";
-      break;
-    case (213.75 < degree && degree < 236.25):
-      cardinalDirection = "SW";
-      break;
-    case (236.25 < degree && degree < 258.75):
-      cardinalDirection = "WSW";
-      break;
-    case (258.75 < degree && degree < 281.25):
-      cardinalDirection = "W";
-      break;
-    case (281.25 < degree && degree < 303.75):
-      cardinalDirection = "WNW";
-      break;
-    case (303.75 < degree && degree < 326.25):
-      cardinalDirection = "NW";
-      break;
-    case (326.25 < degree && degree < 348.75):
-      cardinalDirection = "NNW";
-      break;
-  }
-  console.log("degree is:", degree)
-  console.log("cardinalDirection is:", cardinalDirection)
-  return cardinalDirection;
-}
-
 function mphToMps (mph) {
   mps = mph * ( 1609.34 / 1) * ((1 / 60) * (1 / 60))
   return parseFloat(mps).toFixed(2) 
@@ -134,9 +76,9 @@ function getWeather() {
   });
 }
 
-function changeBackground(weather) {
+function changeBackground(weatherDescription) {
   //change background
-  $.getJSON(`https://api.unsplash.com/search/photos?orientation=landscape&client_id=${unsplashKey}&query=${weather}`, function(data){
+  $.getJSON(`https://api.unsplash.com/search/photos?orientation=landscape&client_id=${unsplashKey}&query=${weatherDescription}`, function(data){
     var randomNumber = Math.floor(Math.random() * 10);
     console.log('Random number for background url:', randomNumber)
     backgroundUrl = data.results[randomNumber].urls.raw
