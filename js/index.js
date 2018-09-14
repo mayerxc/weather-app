@@ -170,6 +170,10 @@ $(document).ready(function() {
     }
   });
 
+  $('#zipInput').keyup(function(event){
+    if (event.keyCode === 13) $('#zip').click();
+  })
+
 
   //https://us-zipcode.api.smartystreets.com/lookup?auth-id=28333262706862285&zipcode=06084
   //look up other zip code
