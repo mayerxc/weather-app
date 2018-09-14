@@ -1,8 +1,9 @@
 #home {
   font-size: 18px;
   margin-bottom: 50px;
-  background: url("https://res.cloudinary.com/mayerxc/image/upload/v1469059448/bad_weather_wf1sto.jpg") no-repeat;
+  background-image: url("https://res.cloudinary.com/mayerxc/image/upload/v1469059448/bad_weather_wf1sto.jpg");
   background-size: cover;
+  background-repeat: no-repeat;
   color: #ffffff;
   text-align: center;
   font-weight: bold;
