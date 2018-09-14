@@ -23,6 +23,12 @@ var zipCode;
 var unsplashKey = '5cfedf94261d3f5677df69f8705144fbb9aac1b9200368b3d0208ff2080f1944';
 var backgroundUrl;
 
+function newWindDirection (degree) {
+  var hexFloor = Math.floor(((parseFloat(degree) + 11.25) / 360) * 16)
+  console.log('Index for array for wind direction', hexFloor)
+}
+
+
 function windDirection (degree){
   degree = parseFloat(degree)
   switch (true) {
@@ -47,9 +53,6 @@ function windDirection (degree){
       break;
     case (123.75 < degree && degree < 146.25):
       cardinalDirection = "SE";
-      break;
-    case (146.25 < degree && degree < 168.75):
-      cardinalDirection = "SSE";
       break;
     case (146.25 < degree && degree < 168.75):
       cardinalDirection = "SSE";
