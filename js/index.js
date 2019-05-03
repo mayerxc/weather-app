@@ -13,10 +13,12 @@ var weatherType;
 var image_url;
 var apiError = "ERROR on API!!!";
 var cardinalDirection;
-var windSpeedString = "";
+var windSpeedStringF = "";
+var windSpeedStringC = "";
 var mph;
 var mps;
 var windDirectionDegrees;
+var windDirectionName;
 var zipInput;
 var zipCode;
 var unsplashKey = '5cfedf94261d3f5677df69f8705144fbb9aac1b9200368b3d0208ff2080f1944';
@@ -24,7 +26,7 @@ var backgroundUrl;
 var queryWeather;
 
 //get wind direction in letters from degrees
-function newWindDirection (degree) {
+function windDirection(degree) {
   //use +11.25 and mod 360 to get (>348.75 and >11.25) or north
   let hexFloor = Math.floor((( (parseFloat(degree) + 11.25) % 360 ) / 360) * 16)
   console.log('Index for array for wind direction', hexFloor);
@@ -33,7 +35,7 @@ function newWindDirection (degree) {
   return windArray[hexFloor];
 }
 
-function mphToMps (mph) {
+function mphToMps(mph) {
   mps = mph * ( 1609.34 / 1) * ((1 / 60) * (1 / 60))
   return parseFloat(mps).toFixed(2) 
 }
@@ -51,21 +53,25 @@ function getWeather() {
       $("#city").html(city + ", " + state);
       console.log("City you are currently in: " + city + ", " + state);
       weatherType = data.weather[0]['description'];
-      queryWeather = data.weather[0]['main']
-      if (queryWeather === "Clear") queryWeather = "Clear sky"
-      console.log('Query unsplash with this weather term:', queryWeather)
+      queryWeather = data.weather[0]['main'];
+      if (queryWeather === "Clear") queryWeather = "Clear sky";
+      console.log('Query unsplash with this weather term:', queryWeather);
       changeBackground(queryWeather);
       $("#weatherType").html(weatherType);
       fTemp = data.main.temp
       fTemp = fTemp.toFixed(0);
       cTemp = (fTemp - 32) * (5 / 9);
       cTemp = cTemp.toFixed(0);
+      $("#cTemp").attr('id', 'temp')
       $("#temp").html(fTemp + "°F");
+      $('#button').html('Switch to Celsius');
       windDirectionDegrees = data.wind.deg;
       mph = data.wind.speed;
-      mps = mphToMps(mph);      
-      windSpeedString = `Wind from the ${newWindDirection(windDirectionDegrees)} at ${mph} MPH`;
-      $("#windSpeed").html(windSpeedString);
+      mps = mphToMps(mph);
+      windDirectionName = windDirection(windDirectionDegrees);    
+      windSpeedStringF = windDirectionName ? `Wind from the ${windDirectionName} at ${mph} MPH` : 'No wind Data';
+      windSpeedStringC = windDirectionName ? `Wind from the ${windDirectionName} at ${mps} MPS` : 'No wind Data';
+      $("#windSpeed").html(windSpeedStringF);
       image_url = `https://openweathermap.org/img/w/${data.weather[0].icon}.png`;
       document.getElementById("image").src = image_url;
     },
@@ -112,14 +118,12 @@ $(document).ready(function() {
   $("#button").click(function() {
     if (document.getElementById("temp") !== null) {
       $("#temp").html(cTemp + "°C");
-      windSpeedString = `Wind from the ${newWindDirection(windDirectionDegrees)} at ${mps} MPS`;    
-      $('#windSpeed').html(windSpeedString)
+      $('#windSpeed').html(windSpeedStringC);
       $('#temp').attr('id','cTemp');
       $('#button').html('Switch to Fahrenheit');
     } else {
       $("#cTemp").html(fTemp + "°F");
-      windSpeedString = `Wind from the ${windDirection(windDirectionDegrees)} at ${mph} MPH`;
-      $('#windSpeed').html(windSpeedString)
+      $('#windSpeed').html(windSpeedStringF);
       $('#cTemp').attr('id','temp');
       $('#button').html('Switch to Celsius');
     }
@@ -137,9 +141,8 @@ $(document).ready(function() {
     console.log("zipInput is:", zipInput);
     //zip code api
     $.getJSON(`https://us-zipcode.api.smartystreets.com/lookup?auth-id=28333262706862285&zipcode=${zipInput}`, function(data){
-      console.log("object from zipcode api:",data);
+      console.log("object from zipcode api:", data);
       try {
-        // $("#zip_error").text("");
         lat = data[0].zipcodes[0].latitude;
         long = data[0].zipcodes[0].longitude;
         state = data[0].zipcodes[0].state;
