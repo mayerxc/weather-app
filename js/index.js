@@ -134,18 +134,22 @@ $(document).ready(function() {
   })
 
 
-  //https://us-zipcode.api.smartystreets.com/lookup?auth-id=28333260977671425&zipcode=06084
-  //look up other zip code
-  $("#zip").click(function(zip){
+  // bing location key: AlRD-RN6tIrjwoIdY-eAVooqaa9s2xOsAM1r4BtE7uY-X9ZjWFnKvYV-WnAH8FNN
+  // https://docs.microsoft.com/en-us/bingmaps/rest-services/locations/find-a-location-by-query
+  
+  //look up by zip code
+  $("#zip").click(function(){
     zipInput = $("#zipInput").val();
+    let bingUrl = `http://dev.virtualearth.net/REST/v1/Locations?query=${zipInput}&key=AlRD-RN6tIrjwoIdY-eAVooqaa9s2xOsAM1r4BtE7uY-X9ZjWFnKvYV-WnAH8FNN&includeNeighborhood=1&incl=queryParse`
     console.log("zipInput is:", zipInput);
-    //zip code api
-    $.getJSON(`https://us-zipcode.api.smartystreets.com/lookup?auth-id=28333260977671425&zipcode=${zipInput}`, function(data){
-      console.log("object from zipcode api:", data);
+    $.getJSON(bingUrl, function(data){
+      console.log("object from bing zipcode api:", data);
       try {
-        lat = data[0].zipcodes[0].latitude;
-        long = data[0].zipcodes[0].longitude;
-        state = data[0].zipcodes[0].state;
+        lat = data.resourceSets[0].resources[0].point.coordinates[0];
+        long = data.resourceSets[0].resources[0].point.coordinates[1];
+        console.log('lat: ', lat);
+        console.log('long: ', long);
+        state = data.resourceSets[0].resources[0].address.adminDistrict;
         api = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=imperial`;
         console.log("no error on zip")
         document.getElementById("zip_error").style.display = "none"
@@ -155,9 +159,27 @@ $(document).ready(function() {
         document.getElementById("zip_error").style.display = "block";
         console.log("error on zip code ");
       }
-      
-      
-    })
+    });
+    
+    
+    //https://us-zipcode.api.smartystreets.com/lookup?auth-id=28333260977671425&zipcode=06084
+    //zip code api
+    // $.getJSON(`https://us-zipcode.api.smartystreets.com/lookup?auth-id=28333260977671425&zipcode=${zipInput}`, function(data){
+    //   console.log("object from zipcode api:", data);
+    //   try {
+    //     lat = data[0].zipcodes[0].latitude;
+    //     long = data[0].zipcodes[0].longitude;
+    //     state = data[0].zipcodes[0].state;
+    //     api = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=imperial`;
+    //     console.log("no error on zip")
+    //     document.getElementById("zip_error").style.display = "none"
+    //     getWeather();
+    //   } catch {
+    //     $("#zip_error").text("Invalid ZIP Code.")
+    //     document.getElementById("zip_error").style.display = "block";
+    //     console.log("error on zip code ");
+    //   }
+    // });
     
   })
   
