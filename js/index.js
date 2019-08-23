@@ -140,7 +140,7 @@ $(document).ready(function() {
   //look up by zip code
   $("#zip").click(function(){
     zipInput = $("#zipInput").val();
-    let bingUrl = `http://dev.virtualearth.net/REST/v1/Locations?query=${zipInput}&key=AlRD-RN6tIrjwoIdY-eAVooqaa9s2xOsAM1r4BtE7uY-X9ZjWFnKvYV-WnAH8FNN&includeNeighborhood=1&incl=queryParse`
+    let bingUrl = `https://dev.virtualearth.net/REST/v1/Locations?query=${zipInput}&key=AlRD-RN6tIrjwoIdY-eAVooqaa9s2xOsAM1r4BtE7uY-X9ZjWFnKvYV-WnAH8FNN&includeNeighborhood=1&incl=queryParse`
     console.log("zipInput is:", zipInput);
     $.getJSON(bingUrl, function(data){
       console.log("object from bing zipcode api:", data);
