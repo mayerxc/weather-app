@@ -134,13 +134,13 @@ $(document).ready(function() {
   })
 
 
-  //https://us-zipcode.api.smartystreets.com/lookup?auth-id=28333262706862285&zipcode=06084
+  //https://us-zipcode.api.smartystreets.com/lookup?auth-id=28333260977671425&zipcode=06084
   //look up other zip code
   $("#zip").click(function(zip){
     zipInput = $("#zipInput").val();
     console.log("zipInput is:", zipInput);
     //zip code api
-    $.getJSON(`https://us-zipcode.api.smartystreets.com/lookup?auth-id=28333262706862285&zipcode=${zipInput}`, function(data){
+    $.getJSON(`https://us-zipcode.api.smartystreets.com/lookup?auth-id=28333260977671425&zipcode=${zipInput}`, function(data){
       console.log("object from zipcode api:", data);
       try {
         lat = data[0].zipcodes[0].latitude;
