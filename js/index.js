@@ -1,39 +1,39 @@
 //API from openweathermap.com: ef0a6d0921431f9f189ee67b50a9455a
 
-var openweathermapApiKey = 'ef0a6d0921431f9f189ee67b50a9455a';
-var long;
-var lat;
-var fTemp;
-var cTemp;
-var openweathermapUrl;
-var windSpeed;
-var city;
-var state;
-var formattedCity;
-var weatherType;
-var image_url;
-var apiError = 'ERROR on API!!!';
-var cardinalDirection;
-var windSpeedStringF = '';
-var windSpeedStringC = '';
-var mph;
-var mps;
-var windDirectionDegrees;
-var windDirectionName;
-var locationInput;
-var zipCode;
-var unsplashKey =
+let openweathermapApiKey = 'ef0a6d0921431f9f189ee67b50a9455a';
+let long;
+let lat;
+let fTemp;
+let cTemp;
+let openweathermapUrl;
+let windSpeed;
+let city;
+let state;
+let formattedCity;
+let weatherType;
+let image_url;
+let apiError = 'ERROR on API!!!';
+let cardinalDirection;
+let windSpeedStringF = '';
+let windSpeedStringC = '';
+let mph;
+let mps;
+let windDirectionDegrees;
+let windDirectionName;
+let locationInput;
+let zipCode;
+let unsplashKey =
   '5cfedf94261d3f5677df69f8705144fbb9aac1b9200368b3d0208ff2080f1944';
-var backgroundUrl;
-var queryWeather;
+let backgroundUrl;
+let queryWeather;
 
 //get wind direction in letters from degrees
 function windDirection(degree) {
   //use +11.25 and mod 360 to get (>348.75 and >11.25) or north
-  let hexFloor = Math.floor((((parseFloat(degree) + 11.25) % 360) / 360) * 16);
+  const hexFloor = Math.floor((((parseFloat(degree) + 11.25) % 360) / 360) * 16);
   console.log('Index for array for wind direction', hexFloor);
   // now we can use hexFloor because degree we converted from 1/360 to 1/16 and an array can be used
-  let windArray = [
+  const windArray = [
     'N',
     'NNE',
     'NE',
@@ -113,7 +113,7 @@ function changeBackground(weatherDescription) {
   $.getJSON(
     `https://api.unsplash.com/search/photos?orientation=landscape&client_id=${unsplashKey}&query=${weatherDescription}`,
     function (data) {
-      var randomNumber = Math.floor(Math.random() * 10);
+      const randomNumber = Math.floor(Math.random() * 10);
       console.log('Random number for background url:', randomNumber);
       backgroundUrl = data.results[randomNumber].urls.raw;
       console.log('object from unsplash api:', data);
@@ -129,7 +129,7 @@ function changeBackground(weatherDescription) {
 }
 
 $(document).ready(function () {
-  //get location using ip address ipapi
+  // get location using ip address ipapi
   $.getJSON('https://ipapi.co/json/', function (geodata) {
     console.log('https://ipapi.co/json/', geodata);
     lat = geodata.latitude;
@@ -139,7 +139,7 @@ $(document).ready(function () {
     formattedCity = state ? `${city}, ${state}` : `${city}`;
     console.log('Your position is: ' + long + '  ' + lat);
 
-    //openweather api below
+    // openweather api below
     openweathermapUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${openweathermapApiKey}&units=imperial`;
     console.log(openweathermapUrl);
 
@@ -165,7 +165,6 @@ $(document).ready(function () {
   });
 
   $('#locationInput').keyup(function (event) {
-    // console.log('event:', event);
     if (event.keyCode === 13) {
       $('#location').click();
     }
@@ -176,7 +175,7 @@ $(document).ready(function () {
 
   $('#location').click(function () {
     locationInput = $('#locationInput').val();
-    let bingUrl = `https://dev.virtualearth.net/REST/v1/Locations?query=${locationInput}&key=AlRD-RN6tIrjwoIdY-eAVooqaa9s2xOsAM1r4BtE7uY-X9ZjWFnKvYV-WnAH8FNN&includeNeighborhood=1&incl=queryParse`;
+    const bingUrl = `https://dev.virtualearth.net/REST/v1/Locations?query=${locationInput}&key=AlRD-RN6tIrjwoIdY-eAVooqaa9s2xOsAM1r4BtE7uY-X9ZjWFnKvYV-WnAH8FNN&includeNeighborhood=1&incl=queryParse`;
     console.log('locationInput:', locationInput);
     $.getJSON(bingUrl, function (data) {
       console.log('object from bing zipcode api:', data);
