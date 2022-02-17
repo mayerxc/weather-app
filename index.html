@@ -1,58 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>FCC Weather app using Wunderground API</title>
 
-<head>
-  <meta charset="UTF-8">
-  <title>FCC Weather app using Wunderground API</title>
+    <!-- add fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Lobster|Merriweather:900italic|Old+Standard+TT"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Slabo+27px|Roboto+Slab|Indie+Flower|Lobster|Kaushan+Script|Quattrocento|Great+Vibes|Tangerine"
+      rel="stylesheet"
+      type="text/css"
+    />
 
-  <!-- add fonts -->
-  <link href='https://fonts.googleapis.com/css?family=Lobster|Merriweather:900italic|Old+Standard+TT' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Slabo+27px|Roboto+Slab|Indie+Flower|Lobster|Kaushan+Script|Quattrocento|Great+Vibes|Tangerine'
-    rel='stylesheet' type='text/css'>
+    <!-- add styles -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
 
-  <!-- add styles -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'> -->
+    <link rel="stylesheet" href="css/style.css" />
 
-  <!-- <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'> -->
-  <link rel="stylesheet" href="css/style.css">
+    <!-- add scripts -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+      integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+      crossorigin="anonymous"
+    ></script>
+    <!-- <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script> -->
+    <script src="js/index.js"></script>
+  </head>
 
-  <!-- add scripts -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <!-- <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script> -->
-  <script src="js/index.js"></script>
-
-
-</head>
-
-<body>
-  <div class="container-fluid">
-    <div id="home" class="jumbotron">
-      <h1 id="header">Weather App</h1>
-      <div id="black" class="well">
-        <img id="image" src="" alt="Weather description here">
-        <div id="city"></div>
-        <div id="weatherType"></div>
-        <div class="temp" id="temp"></div>
-        <button id="button" type="button" class="btn btn-primary">Switch to Celsius</button>
-        <div id="windSpeed"></div>
-        <div class="input-group center_div row">
-          <input id="zipInput" class="form-control" placeholder="zip code" type="number" pattern="\d{5}">
-          <span class="input-group-btn">
-              <button id="zip" class="btn btn-default" type="button">Search</button>
-          </span>
+  <body>
+    <div class="container-fluid">
+      <div id="home" class="jumbotron">
+        <h1 id="header">Weather App</h1>
+        <div id="black" class="well">
+          <img id="image" src="" alt="Weather description here" />
+          <div id="city"></div>
+          <div id="weatherType"></div>
+          <div class="temp" id="temp"></div>
+          <button id="button" type="button" class="btn btn-primary">
+            Switch to Celsius
+          </button>
+          <div id="windSpeed"></div>
+          <div class="input-group center_div row">
+            <input
+              id="locationInput"
+              class="form-control"
+              placeholder="City/State or Zip"
+              type="text"
+            />
+            <span class="input-group-btn">
+              <!-- <button id="zip" class="btn btn-default" type="button">Search</button> -->
+              <button id="location" class="btn btn-default" type="button">
+                Search
+              </button>
+            </span>
+          </div>
+          <div
+            id="zip_error"
+            class="alert alert-danger"
+            role="alert"
+            style="display: none"
+          ></div>
         </div>
-        <div id="zip_error" class="alert alert-danger" role="alert" style="display: none;"></div>
       </div>
     </div>
-  </div>
-  
-  <footer>
-    <div>Built using openweathermap.com API.</div>
-    <div><a href="http://chrismayer.me" target="_blank">Chris Mayer</a></div>
-  </footer>
 
-  
-
-</body>
+    <footer>
+      <div>Built using openweathermap.com API.</div>
+      <div><a href="http://chrismayer.me" target="_blank">Chris Mayer</a></div>
+    </footer>
+  </body>
 </html>
