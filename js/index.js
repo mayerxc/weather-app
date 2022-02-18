@@ -30,7 +30,9 @@ let queryWeather;
 //get wind direction in letters from degrees
 function windDirection(degree) {
   //use +11.25 and mod 360 to get (>348.75 and >11.25) or north
-  const hexFloor = Math.floor((((parseFloat(degree) + 11.25) % 360) / 360) * 16);
+  const hexFloor = Math.floor(
+    (((parseFloat(degree) + 11.25) % 360) / 360) * 16
+  );
   console.log('Index for array for wind direction', hexFloor);
   // now we can use hexFloor because degree we converted from 1/360 to 1/16 and an array can be used
   const windArray = [
@@ -99,7 +101,7 @@ function getWeather() {
         : 'No wind Data';
       $('#windSpeed').html(windSpeedStringF);
       image_url = `https://openweathermap.org/img/w/${data.weather[0].icon}.png`;
-      document.getElementById('image').src = image_url;
+      $('#image').attr('src', image_url);
     },
     error: function (data) {
       $('#error').text(data);
@@ -123,7 +125,7 @@ function changeBackground(weatherDescription) {
     console.log('unsplash api failed');
     $('#home').css(
       'background-image',
-      `url("https://res.cloudinary.com/mayerxc/image/upload/v1469059448/bad_weather_wf1sto.jpg")`
+      'url("https://res.cloudinary.com/mayerxc/image/upload/v1469059448/bad_weather_wf1sto.jpg")'
     );
   });
 }
@@ -135,9 +137,9 @@ $(document).ready(function () {
     lat = geodata.latitude;
     long = geodata.longitude;
     city = geodata.city;
-    state = geodata.region;
-    formattedCity = state ? `${city}, ${state}` : `${city}`;
-    console.log('Your position is: ' + long + '  ' + lat);
+    state = geodata.region_code;
+    formattedCity = state ? `${city}, ${state}` : city;
+    console.log('Your position is: ' + long + ' ' + lat);
 
     // openweather api below
     openweathermapUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${openweathermapApiKey}&units=imperial`;
@@ -151,7 +153,7 @@ $(document).ready(function () {
 
   //switch between Fahrenheit and Celsius
   $('#button').click(function () {
-    if (document.getElementById('temp') !== null) {
+    if ($('#temp') !== null) {
       $('#temp').html(cTemp + '°C');
       $('#windSpeed').html(windSpeedStringC);
       $('#temp').attr('id', 'cTemp');
@@ -194,12 +196,12 @@ $(document).ready(function () {
         }
         openweathermapUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${openweathermapApiKey}&units=imperial`;
         console.log('no error on zip');
-        document.getElementById('zip_error').style.display = 'none';
+        $('#zip_error').css('display', 'none');
         getWeather();
-      } catch {
-        $('#zip_error').text('Invalid ZIP Code.');
-        document.getElementById('zip_error').style.display = 'block';
-        console.log('error on zip code ');
+      } catch (error) {
+        $('#zip_error').text('Invalid ZIP Code or City.');
+        $('#zip_error').css('display', 'block');
+        console.log('error on zip code: ', error);
       }
     });
   });
