@@ -1,6 +1,9 @@
 //API from openweathermap.com: ef0a6d0921431f9f189ee67b50a9455a
 
-let openweathermapApiKey = 'ef0a6d0921431f9f189ee67b50a9455a';
+const openweathermapApiKey = 'ef0a6d0921431f9f189ee67b50a9455a';
+const bingMapsKey = 'AlRD-RN6tIrjwoIdY-eAVooqaa9s2xOsAM1r4BtE7uY-X9ZjWFnKvYV-WnAH8FNN';
+const unsplashKey = '5cfedf94261d3f5677df69f8705144fbb9aac1b9200368b3d0208ff2080f1944';
+const apiError = 'ERROR on API!!!';
 let long;
 let lat;
 let fTemp;
@@ -12,7 +15,6 @@ let state;
 let formattedCity;
 let weatherType;
 let image_url;
-let apiError = 'ERROR on API!!!';
 let cardinalDirection;
 let windSpeedStringF = '';
 let windSpeedStringC = '';
@@ -22,8 +24,6 @@ let windDirectionDegrees;
 let windDirectionName;
 let locationInput;
 let zipCode;
-let unsplashKey =
-  '5cfedf94261d3f5677df69f8705144fbb9aac1b9200368b3d0208ff2080f1944';
 let backgroundUrl;
 let queryWeather;
 
@@ -177,7 +177,7 @@ $(document).ready(function () {
 
   $('#location').click(function () {
     locationInput = $('#locationInput').val();
-    const bingUrl = `https://dev.virtualearth.net/REST/v1/Locations?query=${locationInput}&key=AlRD-RN6tIrjwoIdY-eAVooqaa9s2xOsAM1r4BtE7uY-X9ZjWFnKvYV-WnAH8FNN&includeNeighborhood=1&incl=queryParse`;
+    const bingUrl = `https://dev.virtualearth.net/REST/v1/Locations?query=${locationInput}&key=${bingMapsKey}&includeNeighborhood=1&incl=queryParse`;
     console.log('locationInput:', locationInput);
     $.getJSON(bingUrl, function (data) {
       console.log('object from bing zipcode api:', data);
