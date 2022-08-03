@@ -153,7 +153,7 @@ $(document).ready(function () {
 
   //switch between Fahrenheit and Celsius
   $('#button').click(function () {
-    if ($('#temp') !== null) {
+    if ($('#temp').length) {
       $('#temp').html(cTemp + '°C');
       $('#windSpeed').html(windSpeedStringC);
       $('#temp').attr('id', 'cTemp');
