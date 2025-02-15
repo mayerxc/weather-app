@@ -1,8 +1,10 @@
 //API from openweathermap.com: ef0a6d0921431f9f189ee67b50a9455a
 
 const openweathermapApiKey = 'ef0a6d0921431f9f189ee67b50a9455a';
-const bingMapsKey = 'AlRD-RN6tIrjwoIdY-eAVooqaa9s2xOsAM1r4BtE7uY-X9ZjWFnKvYV-WnAH8FNN';
-const unsplashKey = '5cfedf94261d3f5677df69f8705144fbb9aac1b9200368b3d0208ff2080f1944';
+const bingMapsKey =
+  'AlRD-RN6tIrjwoIdY-eAVooqaa9s2xOsAM1r4BtE7uY-X9ZjWFnKvYV-WnAH8FNN';
+const unsplashKey =
+  '5cfedf94261d3f5677df69f8705144fbb9aac1b9200368b3d0208ff2080f1944';
 const apiError = 'ERROR on API!!!';
 let long;
 let lat;
